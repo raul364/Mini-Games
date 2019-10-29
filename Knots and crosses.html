@@ -1,0 +1,130 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset= "UTF-8"/>
+<title>Tic Tac Toe</title>
+</head>
+<style>
+body{
+background-color: lightsalmon;
+}
+#title {
+	font-size:60px;
+	text-align: center;
+	margin: 5px 0 5px 0;
+}
+
+#turn {
+	text-align: center;
+	margin: 10px 0 10px 0;
+	color: 	mediumblue;
+}
+
+#container {
+	margin: auto;
+	width: 400px;
+}
+
+.box{
+	width: 100px;
+	height: 100px;
+	border: 1px solid ;
+	font-size:80px;	
+	text-align: center;
+	display: inline-block;
+	
+	
+	vertical-align: middle;
+	transform: translateX(+30%);
+	margin-bottom: 5px;
+	margin-left: 5px;
+}
+</style>
+<script>
+var stop = false;
+var turn = 1;
+//Box clicked.
+function place(x){
+	//Checks if the box selected has an empty string.
+	if(!stop){
+		if(x.innerHTML==""){
+			//If result of operation is 0, the number is even and "X" is placed in the innerHTML.
+			if(turn % 2 == 0){
+				x.innerHTML = "X";
+				document.getElementById("turn").innerHTML = "It's O's turn";
+			}
+			else {
+				//Turn number is odd then "O" is placed inside innerHTML.
+				x.innerHTML = "O";
+				document.getElementById("turn").innerHTML = "It's X's turn";
+			}
+			//Increment the value of turn.
+			turn++;
+	
+		}
+		//Call function winCon.
+		winCon();
+	}
+}
+//Gets the id of the boxes and returns it's value.
+function selectBox(num){
+	return document.getElementById(num).innerText;
+	}
+function winCon(){
+	//Gets box's values.
+	//Checks if any of these have their conditions matched in function check. 
+	result = false;
+		if(check(1,2,3)||check(4,5,6)||check(7,8,9)||
+			check(1,4,7)||check(2,5,8)||check(3,6,9)||
+			check(1,5,9)||check(3,5,7)){
+			result = true;
+		} else if(turn == 10){
+		document.getElementById("turn").innerHTML = "Stalemate!";
+		}
+	return result;
+}
+//Function check, checks if id held for m,n, and o equal to X or O and if all true print which player wins
+//and change the colour. 
+function check(m, n, o){
+	var result = false;
+		if(selectBox(m) == "X" && selectBox(n) == "X" && selectBox(o) == "X"){
+			document.getElementById("turn").innerHTML = "X Wins";
+			document.getElementById(m).style.backgroundColor="#7af442";
+			document.getElementById(n).style.backgroundColor="#7af442";
+			document.getElementById(o).style.backgroundColor="#7af442";
+			stop = true;
+			result = true;
+		}
+		else if (selectBox(m) == "O" && selectBox(n) == "O" && selectBox(o) == "O"){
+			document.getElementById("turn").innerHTML = "O Wins";
+			document.getElementById(m).style.backgroundColor="#7af442";
+			document.getElementById(n).style.backgroundColor="#7af442";
+			document.getElementById(o).style.backgroundColor="#7af442";
+			stop = true;
+			result = true;
+		}
+	return result;
+}	
+</script>
+<body>
+<h1 id="title">TicTacToe</h1>
+<h1 id="turn">its O's turn</h1>
+<div id="container">
+	<div id="row1">
+		<div class="box" id="1" onclick="place(this)"></div>
+		<div class="box" id="2" onclick="place(this)"></div>
+		<div class="box" id="3" onclick="place(this)"></div>
+	</div>
+	<div id="row2">
+		<div class="box" id="4" onclick="place(this)"></div>
+		<div class="box" id="5" onclick="place(this)"></div>
+		<div class="box" id="6" onclick="place(this)"></div>
+	</div>
+	<div id="row3">
+		<div class="box" id="7" onclick="place(this)"></div>
+		<div class="box" id="8" onclick="place(this)"></div>
+		<div class="box" id="9" onclick="place(this)"></div>
+	</div>
+</div>
+</body>
+</html>
